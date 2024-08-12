@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Product\ProductResource;
 
 class ProductController extends Controller
 {
@@ -16,6 +16,10 @@ class ProductController extends Controller
 
             $inPromo = filter_var($request->query('in_promo'), FILTER_VALIDATE_BOOLEAN);
             $query->where('in_promo', $inPromo);
+        }
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', $request->query('category_id'));
         }
 
         $products = $query->paginate(10);
