@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Category;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,7 +20,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Product::factory(40)->create();
-        Product::factory(10)->inPromo()->create();
+        $categories = Category::factory(10)->create();
+
+        Product::factory(40)->create()->each(function ($product) use ($categories) {
+            $product->category_id = $categories->random()->id;
+            $product->save();
+        });
+
+        Product::factory(10)->inPromo()->create()->each(function ($product) use ($categories) {
+            $product->category_id = $categories->random()->id;
+            $product->save();
+        });
     }
 }
