@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'description' => fake()->text(),
             'in_promo' => false,
             'promo_price' => null,
-            'price' => fake()->numberBetween(100, 1000),
+            'price' => fake()->randomFloat(2, 100, 1000),
             'quantity' => fake()->numberBetween(1, 100),
         ];
 
