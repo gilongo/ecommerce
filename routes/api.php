@@ -39,4 +39,5 @@ Route::group([
     Route::get('/{order}', [OrderController::class, 'show']);
     Route::post('/', [OrderController::class, 'create']);
     Route::patch('/{order}', [OrderController::class, 'update']);
+    Route::delete('/{order}', [OrderController::class, 'destroy']);
 });

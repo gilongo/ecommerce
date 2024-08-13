@@ -132,4 +132,22 @@ class OrderController extends Controller
 
         return new OrderResource($order);
     }
+
+    public function destroy($order)
+    {
+        $order = Order::find($order);
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        foreach ($order->products as $product) {
+            $product->quantity += $product->pivot->quantity;
+            $product->save();
+        }
+
+        $order->products()->detach();
+        $order->delete();
+        return response()->json([], 204);
+    }
 }
