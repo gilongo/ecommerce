@@ -38,4 +38,5 @@ Route::group([
     Route::get('/', [OrderController::class, 'index']);
     Route::get('/{order}', [OrderController::class, 'show']);
     Route::post('/', [OrderController::class, 'create']);
+    Route::patch('/{order}', [OrderController::class, 'update']);
 });
