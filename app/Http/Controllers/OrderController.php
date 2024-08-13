@@ -20,4 +20,15 @@ class OrderController extends Controller
 
         return OrderResource::collection($orders);
     }
+
+    public function show(Request $request, $order)
+    {
+        $order = Order::find($order);
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        return new OrderResource($order);
+    }
 }
