@@ -5,35 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Order;
+use App\Models\User;
+use App\Models\Product;
 
-class Product extends Model
+class Order extends Model
 {
     use HasFactory;
     use HasUuids;
 
-    protected $table = 'products';
+    protected $table = 'orders';
 
     protected $fillable = [
-        'name', 
-        'description',
-        'category_id', 
-        'price', 
-        'promo_price', 
-        'in_promo', 
-        'quantity'
+        'user_id'
     ];
 
-    public function category(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function orders(): BelongsToMany
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class, 'orders_products', 'product_id', 'order_id')
+        return $this->belongsToMany(Product::class, 'orders_products', 'order_id', 'product_id')
             ->withPivot('quantity')
             ->withTimestamps();
     }
