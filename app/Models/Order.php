@@ -19,7 +19,8 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'user_id'
+        'user_id',
+        'total_price',
     ];
 
     public function user(): BelongsTo

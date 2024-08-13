@@ -20,7 +20,7 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'total_price' => $this->total_price,
+            'total_price' => floatval($this->total_price),
             'created_at' => $this->created_at,
             'products' => $this->products->map(fn($product) => [
                 'id' => $product->id,
