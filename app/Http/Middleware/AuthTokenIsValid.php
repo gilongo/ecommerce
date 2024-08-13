@@ -18,7 +18,7 @@ class AuthTokenIsValid
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->bearerToken() === null) {
+        if(empty($request->bearerToken()) || $request->bearerToken() == 'null') {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
